@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <form enctype="multipart/form-data"> -->
+    姓名：
+    <input type="text" id="xingming">
+    <br> 密码：
+    <input type="password" id="mima">
+    <br> 头像：
+    <input type="file" name="touxiang" id="avatar">
+    <br>
+    <input type="button" id="tijiao" name="sub" value="提交">
+    <!-- </form> -->
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    $(function() {
+
+        // var xingming = document.getElementById("xingming");
+        // var mima = document.getElementById("mima");
+        // var tijiao = document.getElementById("tijiao");
+        // var touxiang = document.getElementById("avatar");
+
+        $("#tijiao").click(function() {
+            // 获取值
+            // var name=$("#xingming").val();
+            // var password=$("#mima").val();
+            var formdata = new FormData();
+            formdata.append("name", $("#xingming").val());
+            formdata.append("password", $("#password").val());
+
+            formdata.append("avatar", $("#avatar")[0].files[0]);
+            // 注意，这里我们上传的文件，$("#avatar")是表单元素本身，他的files属性的第一个元素，是个对象，里面含有图片名字之以及其他属性。我们这里只需要传入图片名字，也就是说以avatar为key，获取包含图片名字的对象为val，在后台获取这个图片名，就要通过$_POST["avatar"]["name"]
+            // formData.append("name",name);
+            // formData.append("password",password);
+
+            $.ajax({
+                url: "4.php",
+                data: formdata,
+                type: "POST",
+                // 下面的三个参数要写上，否则报错
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    console.log(res)
+                }
+            })
+        })
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+	<!-- <form enctype="multipart/form-data"> -->
+    姓名：
+    <input type="text" id="xingming">
+    <br> 密码：
+    <input type="password" id="mima">
+    <br> 头像：
+    <input type="file" name="touxiang" id="avatar">
+    <br>
+    <input type="button" id="tijiao" name="sub" value="提交">
+    <!-- </form> -->
+    <!-- <script src=""></script> -->
+    <script>
+    var xingming = document.getElementById("xingming");
+    var mima = document.getElementById("mima");
+    var tijiao = document.getElementById("tijiao");
+    var touxiang = document.getElementById("avatar");
+
+    tijiao.onclick = function() {
+    	// 获取值
+    	var name=xingming.value;
+    	var password=mima.value;
+    	// console.log(name);
+    	// console.log(password);
+
+
+    	// 获取头像
+    	// 先把头像图文件转换为二进制
+    	var formData = new FormData();
+    	// 再把type=file的文件的fiel[0]这个对象追加进去
+    	// console.log(touxiang.files[0]);
+	    formData.append("name",name);
+	    formData.append("password",password);
+	    // formData.append("avatar",touxiang.files[0]);
+
+	    // 上面的formData只是把头像保存进去了。我需要的除了头像，还有姓名密码所以把他们包装在obj中
+	    // var obj={"name":name,"password":password,"formData":formData}
+	    var xhr=new XMLHttpRequest();
+	    xhr.open("POST","2.php");
+			xhr.setRequestHeader("Content-type","application/json");	
+	    xhr.send(formData);
+	    xhr.onreadystatechange=function(){
+	    	if(xhr.readyState==4&&xhr.status==200){
+
+				var result=xhr.responseText;
+				console.log(result);
+	    	}
+	    }
+    }
+
+
+
+
+
+  //   var btn=document.querySelector("button");
+		// var inpAll=document.querySelectorAll("input");
+		// var h1=document.querySelector("h1");
+		// btn.onclick=function(){
+		// 	var ajax=new XMLHttpRequest();
+		// 	ajax.open("post","post.php");
+		// 	ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");	
+		// 	ajax.send("name="+inpAll[0].value+"&age="+inpAll[1].value);//服务器获取的name和age是这里设置的，不是input中设置的那个
+		// 	ajax.onreadystatechange=function(){
+		// 		if(ajax.readyState==4&&ajax.status==200){
+		// 			h1.innerHTML="服务器说"+ajax.responseText;
+
+
+    </script>
+</body>
+
+</html>

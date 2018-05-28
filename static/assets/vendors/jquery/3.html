@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FormData</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <input id="con" type="text"/>
+    <input id="file" type="file" name="file"/>
+    <button id="upload" type="button">submit</button>
+</script>
+    <script type="text/javascript">
+        $(function(){
+            $("#upload").click(function(){
+
+                var formdata = new FormData();
+                formdata.append("name", $("#con").val());
+                formdata.append("photo", $("#file")[0].files[0]);
+                $.ajax({
+                    url:"3.php",
+                    type:"POST",
+                    data:formdata,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success:function(data){
+                        alert(data);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
